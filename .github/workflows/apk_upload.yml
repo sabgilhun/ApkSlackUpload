@@ -13,6 +13,5 @@ jobs:
     steps:
       - name: Log the parent container node version
         run: |
-            pwd
-            ls
+            ls -a
             echo "complete"
