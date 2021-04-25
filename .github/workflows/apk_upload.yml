@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: androidsdk/android-30:latest
-    steps:
-      - name: Log the parent container node version
-        run: |
-          pwd
-          echo "complete"
+      steps:
+        - name: Log the parent container node version
+          run: |
+            pwd
+            echo "complete"
