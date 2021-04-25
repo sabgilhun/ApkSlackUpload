@@ -10,7 +10,9 @@ jobs:
   node-docker:
     runs-on: ubuntu-latest
     container:
-      image: node:14.15.0-alpine3.12
+      image: androidsdk/android-30:latest
     steps:
       - name: Log the parent container node version
-        run: ls
+        run: |
+          pwd
+          echo "complete"
