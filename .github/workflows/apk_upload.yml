@@ -33,3 +33,9 @@ jobs:
       
       - name: Verify sign
         run: apksigner verify -v --print-certs app/build/outputs/apk/debug/signed-app-debug.apk
+
+      - name: Upload apk to slack
+        env:
+          SLACK_TOKEN: ${{secrets.SLACK_TOKEN}}
+          SLACK_CHNNEL: ${{secrets.SLACK_CHNNEL}}
+        run: curl -H 'Authorization:Bearer ${SLACK_TOKEN}' -F 'channels=${SLACK_CHNNEL}' -F 'filename=app-debug.apk' -F 'file=@app/build/outputs/apk/debug/app-debug.apk' https://slack.com/api/files.upload
