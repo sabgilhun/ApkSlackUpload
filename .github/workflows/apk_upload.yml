@@ -15,8 +15,19 @@ jobs:
       - name: Checkout reopsitory
         uses: actions/checkout@v2
         
-      - name: assemble apk
+      - name: Assemble apk
         run: ./gradlew app:assembleDebug
 
-      - name: log apk
-        run: ls app/build/outputs/apk/debug
+      - name: Prepare Keystore
+        env:
+          KEYSTORE_CONTENTS: ${{secrets.KEYSTORE_CONTENTS}}
+          KEYSTORE_FILE: ${{secrets.KEYSTORE_FILE}}
+        run: sudo bash -c "echo '$KEYSTORE_CONTENTS' | base64 -d > '$KEYSTORE_FILE'"
+      
+      - name: Signing apk
+        env:
+          KEY_ALIAS_NAME: ${{secrets.KEY_ALIAS_NAME}}
+        run: apksigner sign -v --out app/build/outputs/apk/debug/signed-app-debug.apk --ks $KEYSTORE_FILE --ks-key-alias $KEY_ALIAS_NAME app/build/outputs/apk/debug/app-debug.apk
+      
+      - name: Verify sign
+        run: apksigner verify -v --print-certs app/build/outputs/apk/debug/signed-app-debug.apk
