@@ -38,4 +38,4 @@ jobs:
         env:
           SLACK_TOKEN: ${{secrets.SLACK_TOKEN}}
           SLACK_CHNNEL: ${{secrets.SLACK_CHNNEL}}
-        run: curl -H 'Authorization:Bearer ${SLACK_TOKEN}' -F 'channels=${SLACK_CHNNEL}' -F 'filename=app-debug.apk' -F 'file=@app/build/outputs/apk/debug/app-debug.apk' https://slack.com/api/files.upload
+        run: curl -H 'Authorization:${SLACK_TOKEN}' -F 'channels=${SLACK_CHNNEL}' -F 'filename=app-debug.apk' -F 'file=@app/build/outputs/apk/debug/app-debug.apk' https://slack.com/api/files.upload
