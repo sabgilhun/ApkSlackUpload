@@ -1,4 +1,4 @@
-name: CI
+name: UploadApk
 
 on:
   schedule:
@@ -7,12 +7,16 @@ on:
   workflow_dispatch:
 
 jobs:
-  node-docker:
+  build:
     runs-on: ubuntu-latest
     container: androidsdk/android-30:latest
+
     steps:
-      - name: Log the parent container node version
-        run: |
-            cd .
-            ls -a
-            echo "complete"
+      - name: Checkout reopsitory
+        uses: actions/checkout@v2
+        
+      - name: assemble apk
+        run: ./gradlew app:assembleDebug
+
+      - name: log apk
+        run: ls app/build/outputs/apk/debug
