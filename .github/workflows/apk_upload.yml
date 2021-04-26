@@ -24,6 +24,9 @@ jobs:
           KEYSTORE_FILE: ${{secrets.KEYSTORE_FILE}}
         run: echo $KEYSTORE_CONTENTS | base64 -d > $KEYSTORE_FILE
       
+      - name: ls
+        run: ls -a
+
       - name: Signing apk
         env:
           KEY_ALIAS_NAME: ${{secrets.KEY_ALIAS_NAME}}
